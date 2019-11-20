@@ -109,8 +109,8 @@ public class HumRes {
     }
 
     public String toString(){
-            return getHRId() + ", " + "'"+ getHRName() + "'" + ", " +  "'" + getHRAddrStr() +  "'" +", "  +getHRLatitude() + ", "
-                    + getHRLongitude() + ", " +  "'" +getHRType() +  "'" +", " +  "'" +getHRDesc()  + "'" +", " +  "'" + getHROpenHoursStr() +"'";
+        return getHRId() + ", " + "'"+ getHRName() + "'" + ", " +  "'" + getHRAddrStr() +  "'" +", '" + getHRPhoneNum() + "', "  +getHRLatitude() + ", "
+                + getHRLongitude() + ", " +  "'" +getHRType() +  "'" +", " +  "'" +getHRDesc()  + "'" +", " +  "'" + getHROpenHoursStr() +"'";
     }
 
     public boolean equals(Object object){
