@@ -1,20 +1,18 @@
 package Assignment3;
 
 public class Water extends HumRes {
-    private int HRId;
     private int num10OzAva;
     private int numHelfLAva;
     private int num5GAva;
 
     public Water(){
-        this.HRId = 0;
         this.num10OzAva = 0;
         this.numHelfLAva = 0;
         this.num5GAva = 0;
     }
 
-    public Water(int HRId,int num10OzAva, int numHelfLAva, int num5GAva){
-        this.HRId = HRId;
+    public Water(int HRId, String HRName, String HRAddrStr, String HRPhoneNum, double HRLatitude, double HRLongitude, String HRType,String HRDesc, String HROpenHoursStr,int num10OzAva, int numHelfLAva, int num5GAva){
+        super(HRId,HRName, HRAddrStr, HRPhoneNum, HRLatitude, HRLongitude, HRType, HRDesc,HROpenHoursStr);
         this.num10OzAva = num10OzAva;
         this.numHelfLAva = numHelfLAva;
         this.num5GAva = num5GAva;
