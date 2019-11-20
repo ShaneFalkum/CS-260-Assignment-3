@@ -94,10 +94,25 @@ public class Operations {
     }
 
     //Water
-    public static void insertWater(){
-
-
-
+      public static void insertWater(){
+        HumRes hr = insertHumRes();
+        System.out.println("Enter number for 10oz bottle:");
+        int num1 = input.nextInt();
+        System.out.println("Enter number for Half Liter bottle:");
+        int num2 = input.nextInt();
+        System.out.println("Enter number for 5 gallon bottle:");
+        int num3 = input.nextInt();
+        input.nextLine();
+        Water water = new Water(hr.getHRId(),hr.getHRName(), hr.getHRAddrStr(), hr.getHRPhoneNum(), hr.getHRLatitude(), hr.getHRLongitude(), hr.getHRType(), hr.getHRDesc(),hr.getHROpenHoursStr(), num1,num2,num3);
+        try {
+            dao.executeSQLNonQuery("INSERT INTO HumResource VALUES (" + hr.toString() +")");
+            dao.executeSQLNonQuery("INSERT INTO Water VALUES (" + water.toString() + ")");
+            dao.commit();
+        }catch(SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
+        dao.disconnect();
     }
 
     public static void updateWater(){
@@ -145,9 +160,28 @@ public class Operations {
 
 
     //MedicalCenter
-    public static void insertMedCenter(){
-
+     public static void insertMedCenter(){
+        HumRes hr = insertHumRes();
+        System.out.println("Enter number of beds: ");
+        int beds = input.nextInt();
+        System.out.println("Enter number of Emergency room:");
+        int rooms = input.nextInt();
+        System.out.println("Enter number of doctors:");
+        int doctors = input.nextInt();
+        System.out.println("Enter number of nurses:");
+        int nurses = input.nextInt();
+        MedicalCenter mc = new MedicalCenter(hr.getHRId(),hr.getHRName(), hr.getHRAddrStr(), hr.getHRPhoneNum(), hr.getHRLatitude(), hr.getHRLongitude(), hr.getHRType(), hr.getHRDesc(),hr.getHROpenHoursStr(), beds,rooms,doctors,nurses);
+        try {
+            dao.executeSQLNonQuery("INSERT INTO HumResource VALUES (" + hr.toString() +")");
+            dao.executeSQLNonQuery("INSERT INTO MedicalCenter VALUES (" + mc.toString() + ")");
+            dao.commit();
+        }catch(SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
+        dao.disconnect();
     }
+
 
     public static void updateMedCenter(){
 
