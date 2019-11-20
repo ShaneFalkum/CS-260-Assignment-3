@@ -1,51 +1,47 @@
-package Assignment3;
-
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Operations {
 
 
-    private static DataAccessObject dao;
+    private static DataAccessObject dao = new DataAccessObject();
     static Scanner input = new Scanner(System.in);
     private static int id = 1009;
 
     public static void chooseOperation(String type, String operation){
-        if(type.toLowerCase().equals("water")){
-            if(operation.toLowerCase().equals("insert")){
-                insertWater();
-            }
-            else if(operation.toLowerCase().equals("update")){
-                updateWater();
-            }
-            else if(operation.toLowerCase().equals("delete")){
-                deleteWater();
-            }
-        }
-        else if(type.toLowerCase().equals("food")){
-            if(operation.toLowerCase().equals("insert")){
-                insertFood();
-            }
-            else if(operation.toLowerCase().equals("update")){
-                updateFood();
-            }
-            else if(operation.toLowerCase().equals("delete")){
-                deleteFood();
-            }
-        }
-        else if(type.toLowerCase().equals("medical center")){
-            if(operation.toLowerCase().equals("insert")){
-                insertMedCenter();
-            }
-            else if(operation.toLowerCase().equals("update")){
-                updateMedCenter();
-            }
-            else if(operation.toLowerCase().equals("delete")){
-                deleteMedCenter();
-            }
-        }
+        try {
+            dao.connect();
+            dao.setAutoCommit(false);
 
+            if (type.toLowerCase().equals("water")) {
+                if (operation.toLowerCase().equals("insert")) {
+                    insertWater();
+                } else if (operation.toLowerCase().equals("update")) {
+                    updateWater();
+                } else if (operation.toLowerCase().equals("delete")) {
+                    deleteWater();
+                }
+            } else if (type.toLowerCase().equals("food")) {
+                if (operation.toLowerCase().equals("insert")) {
+                    insertFood();
+                } else if (operation.toLowerCase().equals("update")) {
+                    updateFood();
+                } else if (operation.toLowerCase().equals("delete")) {
+                    deleteFood();
+                }
+            } else if (type.toLowerCase().equals("medical center")) {
+                if (operation.toLowerCase().equals("insert")) {
+                    insertMedCenter();
+                } else if (operation.toLowerCase().equals("update")) {
+                    updateMedCenter();
+                } else if (operation.toLowerCase().equals("delete")) {
+                    deleteMedCenter();
+                }
+            }
+        }catch(SQLException e){
+            System.out.println("could not connect to database.");
+        }
     }
-
 
     //HumanResource
     public static HumRes insertHumRes(){
@@ -76,6 +72,7 @@ public class Operations {
         System.out.println("Enter type:");
         String type = input.next();
         hr.setHRType(type);
+        input.nextLine();
 
         System.out.println("Enter description:");
         String des = input.nextLine();
@@ -98,7 +95,6 @@ public class Operations {
 
     //Water
     public static void insertWater(){
-        HumRes hr = new HumRes();
 
 
 
@@ -122,10 +118,20 @@ public class Operations {
         String Ftype = input.next();
         System.out.println("Enter number of food meals available:");
         int FMealsAva = input.nextInt();
+        input.nextLine();
         System.out.println("Enter food specific description:");
         String Fdesc = input.nextLine();
+
         Food food = new Food(hr.getHRId(),hr.getHRName(), hr.getHRAddrStr(), hr.getHRPhoneNum(), hr.getHRLatitude(), hr.getHRLongitude(), hr.getHRType(), hr.getHRDesc(),hr.getHROpenHoursStr(), Ftype, FMealsAva, Fdesc);
-        dao.executeSQLNonQuery("INSERT INTO Food VALUES(" + food.toString() + ")");
+        try {
+            dao.executeSQLNonQuery("INSERT INTO HumResource VALUES (" + hr.toString() +")");
+            dao.executeSQLNonQuery("INSERT INTO Food VALUES (" + food.toString() + ")");
+            dao.commit();
+        }catch(SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
+        dao.disconnect();
     }
 
     public static void updateFood(){
