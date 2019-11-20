@@ -1,13 +1,11 @@
 package Assignment3;
 
 public class Food extends HumRes{
-    private int HRId;
     private String FType;
     private int FMealsAva;
     private String FDec;
 
     public Food(){
-        this.HRId = super.getHRId();
         this.FType = "";
         this.FMealsAva = 0;
         this.FDec = "";
@@ -15,7 +13,6 @@ public class Food extends HumRes{
 
     public Food(int HRId, String HRName, String HRAddrStr, String HRPhoneNum, double HRLatitude, double HRLongitude, String HRType,String HRDesc, String HROpenHoursStr, String FType, int FMealsAva, String FDec){
             super(HRId,HRName, HRAddrStr, HRPhoneNum, HRLatitude, HRLongitude, HRType, HRDesc,HROpenHoursStr);
-            this.HRId = HRId;
             this.FType = FType;
             this.FMealsAva = FMealsAva;
             this.FDec = FDec;
