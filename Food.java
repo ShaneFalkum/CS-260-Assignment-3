@@ -43,6 +43,6 @@ public class Food extends HumRes{
     }
 
     public String toString(){
-            return getHRId() + ", '" + getFType() + "'," + getFMealsAva() +  ", '" + getFDec()  + "',";
+            return getHRId() + ", '" + getFType() + "'," + getFMealsAva() +  ", '" + getFDec()  + "'";
     }
 }
