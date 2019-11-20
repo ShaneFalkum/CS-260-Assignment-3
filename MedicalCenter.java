@@ -1,26 +1,24 @@
 package Assignment3;
 
 public class MedicalCenter extends HumRes {
-    private int HRId;
     private int numBeds;
     private int emergencyRoomCapacity;
     private int numDoctors;
     private int numNurses;
 
     public MedicalCenter(){
-        this.HRId =0;
         this.numBeds = 0;
         this.emergencyRoomCapacity = 0;
         this.numDoctors = 0;
         this.numNurses = 0;
     }
 
-    public MedicalCenter(int HRId,int numBeds, int emergencyRoomCapacity, int numDoctors, int numNurses){
-            this.HRId = HRId;
-            this.numBeds = numBeds;
-            this.emergencyRoomCapacity = emergencyRoomCapacity;
-            this.numDoctors = numDoctors;
-            this.numNurses = numNurses;
+    public MedicalCenter(int HRId, String HRName, String HRAddrStr, String HRPhoneNum, double HRLatitude, double HRLongitude, String HRType,String HRDesc, String HROpenHoursStr, int numBeds, int emergencyRoomCapacity, int numDoctors, int numNurses){
+        super(HRId,HRName, HRAddrStr, HRPhoneNum, HRLatitude, HRLongitude, HRType, HRDesc,HROpenHoursStr);
+        this.numBeds = numBeds;
+        this.emergencyRoomCapacity = emergencyRoomCapacity;
+        this.numDoctors = numDoctors;
+        this.numNurses = numNurses;
     }
 
 
