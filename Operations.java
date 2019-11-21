@@ -20,24 +20,30 @@ public class Operations {
                 if (operation.toLowerCase().equals("insert")) {
                     insertWater();
                 } else if (operation.toLowerCase().equals("update")) {
+                    display(type);
                     updateWater();
                 } else if (operation.toLowerCase().equals("delete")) {
+                    display(type);
                     deleteWater();
                 }
             } else if (type.toLowerCase().equals("food")) {
                 if (operation.toLowerCase().equals("insert")) {
                     insertFood();
                 } else if (operation.toLowerCase().equals("update")) {
+                    display(type);
                     updateFood();
                 } else if (operation.toLowerCase().equals("delete")) {
+                    display(type);
                     deleteFood();
                 }
             } else if (type.toLowerCase().equals("medical center")) {
                 if (operation.toLowerCase().equals("insert")) {
                     insertMedCenter();
                 } else if (operation.toLowerCase().equals("update")) {
+                    display(type);
                     updateMedCenter();
                 } else if (operation.toLowerCase().equals("delete")) {
+                    display(type);
                     deleteMedCenter();
                 }
             }
@@ -94,7 +100,7 @@ public class Operations {
     }
 
     public static void deleteHumRes(){
-            display("HumResource");
+           
 
     }
 
@@ -138,7 +144,7 @@ public class Operations {
     }
 
     public static void deleteWater(){
-        display("Water");
+        
 
     }//Food
     public static void insertFood(){
@@ -170,7 +176,8 @@ public class Operations {
 
     public static void deleteFood(){
         //display data in  human resource
-        deleteHumRes();}
+        deleteHumRes();
+    }
 
 
 
