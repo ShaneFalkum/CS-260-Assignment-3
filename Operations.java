@@ -101,8 +101,14 @@ public class Operations {
         return dId;
     }
 
-    public static void deleteHumRes(){
-    
+    public static void deleteHumRes(int dId){
+        try{
+            dao.executeSQLNonQuery("DELETE FROM HumResource WHERE HRID = " + dId);
+            System.out.println("Delete succeeded in HumResource");
+        }catch (SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
     }
 
     public static void display(String type){
@@ -140,12 +146,14 @@ public class Operations {
 
     }
 
-     public static void deleteWater(){
+      public static void deleteWater(){
         System.out.println("Enter HRId that you want to delete:");
         int dId = input.nextInt();
+        input.nextLine();
         try{
             dao.executeSQLNonQuery("DELETE FROM Water WHERE HRID = " + dId);
-            System.out.println("Delete succeeded");
+            System.out.println("Delete succeeded in water");
+            deleteHumRes(dId);
             dao.commit();
         }catch (SQLException e){
             System.out.println("SQL Query failed");
@@ -181,9 +189,10 @@ public class Operations {
 
     }
 
-     public static void deleteFood(){
-        //display data in  human resource
-        int dId = deleteHumRes();
+      public static void deleteFood(){
+        System.out.println("Enter HRId that you want to delete:");
+        int dId = input.nextInt();
+        input.nextLine();
         try{
             dao.executeSQLNonQuery("DELETE FROM FOOD WHERE HRID = " + dId);
             System.out.println("Delete succeeded");
@@ -224,7 +233,9 @@ public class Operations {
     }
 
       public static void deleteMedCenter(){
-        int dId = deleteHumRes();
+        System.out.println("Enter HRId that you want to delete:");
+        int dId = input.nextInt();
+        input.nextLine();
         try{
             dao.executeSQLNonQuery("DELETE FROM MedicalCenter WHERE HRID = " + dId);
             System.out.println("Delete succeeded");
@@ -235,4 +246,3 @@ public class Operations {
         }
         dao.disconnect();
     }
-}
