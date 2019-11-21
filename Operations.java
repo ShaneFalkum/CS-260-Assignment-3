@@ -1,3 +1,4 @@
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -5,6 +6,8 @@ public class Operations {
 
 
     private static DataAccessObject dao = new DataAccessObject();
+    private static ResultSet daoRset = null;
+    private static String rst;
     static Scanner input = new Scanner(System.in);
     private static int id = 1009;
 
@@ -42,6 +45,7 @@ public class Operations {
             System.out.println("could not connect to database.");
         }
     }
+
 
     //HumanResource
     public static HumRes insertHumRes(){
@@ -90,11 +94,25 @@ public class Operations {
     }
 
     public static void deleteHumRes(){
+            display("HumResource");
 
     }
 
-    //Water
-      public static void insertWater(){
+    public static void display(String type){
+        try {
+            // get the database
+            daoRset = dao.executeSQLQuery("SELECT * FROM " + type);
+            rst = dao.processResultSet(daoRset);
+            dao.commit();
+           System.out.println("Display table from " + type + ":\n" + rst);
+           System.out.println("Transaction commit.");
+
+        } catch (SQLException e) {
+            System.out.println("Error");
+            dao.rollback();
+        }
+    } //Water
+    public static void insertWater(){
         HumRes hr = insertHumRes();
         System.out.println("Enter number for 10oz bottle:");
         int num1 = input.nextInt();
@@ -120,15 +138,11 @@ public class Operations {
     }
 
     public static void deleteWater(){
+        display("Water");
 
-    }
-
-
-
-    //Food
+    }//Food
     public static void insertFood(){
         HumRes hr = insertHumRes();
-        int id = hr.getHRId();
         System.out.println("Enter food type:");
         String Ftype = input.next();
         System.out.println("Enter number of food meals available:");
@@ -149,18 +163,19 @@ public class Operations {
         dao.disconnect();
     }
 
+
     public static void updateFood(){
 
     }
 
     public static void deleteFood(){
-
-    }
+        //display data in  human resource
+        deleteHumRes();}
 
 
 
     //MedicalCenter
-     public static void insertMedCenter(){
+    public static void insertMedCenter(){
         HumRes hr = insertHumRes();
         System.out.println("Enter number of beds: ");
         int beds = input.nextInt();
@@ -181,7 +196,6 @@ public class Operations {
         }
         dao.disconnect();
     }
-
 
     public static void updateMedCenter(){
 
