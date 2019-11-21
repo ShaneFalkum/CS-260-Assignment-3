@@ -94,24 +94,18 @@ public class Operations {
         return hr;
     }
 
-    public static void updateHumRes(){
-
+    public static int deleteHumRes(){
+        System.out.println("Enter HRId that you want to delete:");
+        int dId = input.nextInt();
+        input.nextLine();
+        return dId;
     }
 
     public static void deleteHumRes(){
-
+    
     }
 
     public static void display(String type){
-//        try {
-//            // get the database
-//            daoRset = dao.executeSQLQuery("SELECT * FROM Food");
-//            rst = dao.processResultSet(daoRset);
-//
-//            System.out.println("Display table from " + type + ":\n" + rst);
-//        } catch (SQLException e) {
-//            System.out.println("Error");
-//        }
         try{
             daoRset = dao.executeSQLQuery("select * from " + type);
             rst = dao.processResultSet(daoRset);
@@ -146,8 +140,18 @@ public class Operations {
 
     }
 
-    public static void deleteWater(){
-
+     public static void deleteWater(){
+        System.out.println("Enter HRId that you want to delete:");
+        int dId = input.nextInt();
+        try{
+            dao.executeSQLNonQuery("DELETE FROM Water WHERE HRID = " + dId);
+            System.out.println("Delete succeeded");
+            dao.commit();
+        }catch (SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
+        dao.disconnect();
 
     }//Food
     public static void insertFood(){
@@ -177,11 +181,19 @@ public class Operations {
 
     }
 
-    public static void deleteFood(){
+     public static void deleteFood(){
         //display data in  human resource
-        deleteHumRes();
+        int dId = deleteHumRes();
+        try{
+            dao.executeSQLNonQuery("DELETE FROM FOOD WHERE HRID = " + dId);
+            System.out.println("Delete succeeded");
+            dao.commit();
+        }catch (SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
+        dao.disconnect();
     }
-
 
 
     //MedicalCenter
@@ -211,7 +223,16 @@ public class Operations {
 
     }
 
-    public static void deleteMedCenter(){
-
+      public static void deleteMedCenter(){
+        int dId = deleteHumRes();
+        try{
+            dao.executeSQLNonQuery("DELETE FROM MedicalCenter WHERE HRID = " + dId);
+            System.out.println("Delete succeeded");
+            dao.commit();
+        }catch (SQLException e){
+            System.out.println("SQL Query failed");
+            dao.rollback();
+        }
+        dao.disconnect();
     }
 }
