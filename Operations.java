@@ -20,30 +20,30 @@ public class Operations {
                 if (operation.toLowerCase().equals("insert")) {
                     insertWater();
                 } else if (operation.toLowerCase().equals("update")) {
-                    display(type);
+                    display("water");
                     updateWater();
                 } else if (operation.toLowerCase().equals("delete")) {
-                    display(type);
+                    display("water");
                     deleteWater();
                 }
             } else if (type.toLowerCase().equals("food")) {
                 if (operation.toLowerCase().equals("insert")) {
                     insertFood();
                 } else if (operation.toLowerCase().equals("update")) {
-                    display(type);
+                    display("food");
                     updateFood();
                 } else if (operation.toLowerCase().equals("delete")) {
-                    display(type);
+                    display("food");
                     deleteFood();
                 }
             } else if (type.toLowerCase().equals("medical center")) {
                 if (operation.toLowerCase().equals("insert")) {
                     insertMedCenter();
                 } else if (operation.toLowerCase().equals("update")) {
-                    display(type);
+                    display("MedicalCenter");
                     updateMedCenter();
                 } else if (operation.toLowerCase().equals("delete")) {
-                    display(type);
+                    display("MedicalCenter");
                     deleteMedCenter();
                 }
             }
@@ -56,7 +56,6 @@ public class Operations {
     //HumanResource
     public static HumRes insertHumRes(){
         HumRes hr = new HumRes();
-
 
         hr.setHRId(id++);
         System.out.println("Enter name:");
@@ -100,22 +99,26 @@ public class Operations {
     }
 
     public static void deleteHumRes(){
-           
 
     }
 
     public static void display(String type){
-        try {
-            // get the database
-            daoRset = dao.executeSQLQuery("SELECT * FROM " + type);
+//        try {
+//            // get the database
+//            daoRset = dao.executeSQLQuery("SELECT * FROM Food");
+//            rst = dao.processResultSet(daoRset);
+//
+//            System.out.println("Display table from " + type + ":\n" + rst);
+//        } catch (SQLException e) {
+//            System.out.println("Error");
+//        }
+        try{
+            daoRset = dao.executeSQLQuery("select * from " + type);
             rst = dao.processResultSet(daoRset);
-            dao.commit();
-           System.out.println("Display table from " + type + ":\n" + rst);
-           System.out.println("Transaction commit.");
-
-        } catch (SQLException e) {
-            System.out.println("Error");
-            dao.rollback();
+            System.out.println("results in " + type);
+            System.out.println(rst);
+        }catch(SQLException e){
+            System.out.println("Could not access database at this time");
         }
     } //Water
     public static void insertWater(){
@@ -144,7 +147,7 @@ public class Operations {
     }
 
     public static void deleteWater(){
-        
+
 
     }//Food
     public static void insertFood(){
